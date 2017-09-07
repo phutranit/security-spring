@@ -1,0 +1,18 @@
+ 1.  
+ Vì khi start ứng dụng, 
+ filter sẽ được load trước servlet, 
+ và thông tin cấu hình về security sẽ được load cùng lúc để cung cấp các ràng buộc về bảo mật cho filter, 
+ cho nên các thông tin cấu hình liên quan đến bảo mật trong file spring-config-security.xml sẽ phải được đặt riêng ra 
+ để load trước vào trong một WebApplicationContext bởi một ContextLoaderListener.
+ 2.
+ Sự khác biệt cơ bản giữa /*và /là một servlet với bản đồ /* sẽ được chọn trước bất kỳ servlet nào với bản đồ mở rộng (như thế *.html), trong khi một servlet 
+ với bản đồ /chỉ được chọn sau khi các ánh xạ mở rộng được xem xét (và sẽ được sử dụng cho bất kỳ yêu cầu nào, t phù hợp với bất cứ điều gì khác --- nó là "servlet mặc định").
+
+Cụ thể, /*lập bản đồ sẽ luôn được lựa chọn trước khi /lập bản đồ. Có hoặc là ngăn bất kỳ yêu cầu nào từ việc tiếp cận servlet mặc định của container.
+
+---------------
+ Lưu ý rằng bộ lọc-ánh xạ có url-pattern của / *. Điều này dẫn tất cả các yêu cầu đến ứng dụng web thông qua bộ lọc MyFilter.
+ 
+access:
+https://docs.spring.io/spring-security/site/docs/current/reference/html/el-access.html
+http://otndnld.oracle.co.jp/document/products/as10g/101300/B25221_03/web.1013/b14426/filters.htm
